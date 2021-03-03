@@ -1,7 +1,8 @@
 # <TaskShare>
 
 ## サイト概要
-<ファイル共有サイト>
+<仕事をするときに，参考資料や参考記事などが，手軽に共有でき，マイページに登録できると便利ではないでしょうか？
+本サイトは，利用者同士で情報を提供し合い，マイページやマイカレンダーに資料を登録することで，効率的に仕事ができるようサポートすることを目指します。>
 
 ### サイトテーマ
 <手軽にファイルのアップロードとダウロード，評価ができるサイト>
@@ -16,9 +17,9 @@
 <pdf,excel,word,jpg,mp4など様々な形式のファイルを共有する>
 
 ## 設計書
-<...>
+https://app.diagrams.net/#G17FVjo3upb5gD_tkc6KpXcxYfVnVO_jr2
 
-## チャレンジ要素一覧
+## 機能要素一覧
 https://docs.google.com/spreadsheets/d/1zk-McCaZrVByHbgcOyXZTqSZC3Tie5G-F3-ZSXE0VIM/edit#gid=0
 
 ## 開発環境
