@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "taskshare",
+=======
+  "name": "TaskShare",
+>>>>>>> origin/main
   "private": true,
   "dependencies": {}
 }
