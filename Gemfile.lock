@@ -100,7 +100,11 @@ GEM
     mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
+<<<<<<< HEAD
     nio4r (2.5.7)
+=======
+    nio4r (2.5.5)
+>>>>>>> origin/main
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
