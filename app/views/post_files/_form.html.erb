@@ -1,0 +1,6 @@
+<%= form_with model: files, local: true do |form| %>
+  <%= form.text_field :title %><br><br>
+  <%= form.file_field :files, multiple: true %><br>
+  <%= form.text_area :introduction %>
+  <%= form.submit %>
+<% end %>

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-    #論理的削除はどうするか？
     before_action :authenticate_user!
     before_action :ensure_correct_user, only: [:edit, :update]
     def show

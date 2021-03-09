@@ -1,0 +1,23 @@
+views/post_files/show.html.erb
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User Info</h2>
+      <%= render 'users/info', user: current_user %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2><%= @postfiles.title %></h2>
+      <% if @postfiles.files.attached? %>
+        <table>
+          <% @postfiles.files.each do |file| %>
+            <tr>
+              <th>○<%=link_to file.filename ,download_post_file_path(@postfiles) %></th>
+              <th><%= image_tag file,:size => '120x80' %></th>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+      <%= @postfiles.introduction %>
+    </div>
+  </div>
+</div>
