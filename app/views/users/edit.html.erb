@@ -1,0 +1,39 @@
+views/users/edit.html.erb
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>Edit User info</h2>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <%= form_with model:@user, local:true do |f| %>
+        <table>
+          <tr>
+            <th>Image</th>
+            <th><%= f.attachment_field :profile_image, placeholder: "profile_image" %></th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th><%= f.text_field :name, autofocus: true %></th>
+          </tr>
+          <tr>
+            <th>Contact</th>
+            <th><%= f.email_field :email,autofocus: true %></th>
+          </tr>
+          <tr>
+            <th>Description</th>
+            <th><%= f.text_area :opinion,autofocus: true %></th>
+          </tr>
+          <tr>
+            <th><%= f.submit class: 'btn btn-secondary' %></th>
+            <th></th>
+          </tr>
+        </table>
+      <% end %>
+        
+        
+        
+        
+      
+    </div>
+  </div>
+</div>

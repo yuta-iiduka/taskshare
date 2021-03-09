@@ -1,0 +1,14 @@
+views/users/index.html.erb
+
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User info</h2>
+      <%= render 'info', user: current_user %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Users</h2>
+      <%= render 'index',users: @users %>
+    </div>
+  </div>
+</div>
