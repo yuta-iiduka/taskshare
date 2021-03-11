@@ -7,7 +7,24 @@ views/users/show.html.erb
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Files</h2>
-      
+      <table class="table">
+        <tr>
+          <th>title</th>
+          <th>user</th>
+          <th>date</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <% @user.post_files.each do |pf| %>
+          <tr>
+            <th><%= link_to pf.title, post_file_path(pf) %></th>
+            <th><%= pf.user.name %></th>
+            <th><%= pf.updated_at %></th>
+            <th><%= link_to "Edit", edit_post_file_path(pf) %></th>
+            <th><%= link_to "Delete", post_file_path(pf), method: :delete %></th>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

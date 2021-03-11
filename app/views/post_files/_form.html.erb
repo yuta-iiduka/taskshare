@@ -1,6 +1,17 @@
 <%= form_with model: files, local: true do |form| %>
-  <%= form.text_field :title %><br><br>
-  <%= form.file_field :files, multiple: true %><br>
-  <%= form.text_area :introduction %>
-  <%= form.submit %>
+  <div calss = "form-group">
+    <%= form.label :title ,class:"font-weight-bold" %>
+    <%= form.text_field :title ,class:"form-control input-sm" %><br>
+  </div>
+  <div calss = "form-group">
+    <%= form.label :files,class:"font-weight-bold" %><br>
+    <%= form.file_field :files, multiple: true %><br><br>
+  </div>
+  <div calss = "form-group">
+    <%= form.label :introduction,class:"font-weight-bold" %><br>
+    <%= form.text_area :introduction,class:"form-control input-sm" %><br>
+  </div>
+  <div calss = "form-group">
+    <%= form.submit %>
+  </div>
 <% end %>

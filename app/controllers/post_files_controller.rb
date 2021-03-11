@@ -18,6 +18,7 @@ class PostFilesController < ApplicationController
 
   def show
     @postfiles = PostFile.find(params[:id])  
+    @postcomment = PostComment.new
   end
   
   def edit
@@ -25,31 +26,33 @@ class PostFilesController < ApplicationController
   end
   
   def update
-    
+    @postfiles = PostFile.find(params[:id])
+    if @postfiles.update
+      redirect_to post_file_path(@postfiles)
+    else
+      render :edit
+    end
   end
   
   def destroy
+    @postfiles = PostFile.find(params[:id])
+    #@postfiles.files.purge
     @postfiles.destroy
-    redirect_to post_files_path
+    redirect_to user_path(current_user)
   end
   
-  #課題
-  def download
-    @postfiles = PostFile.find(params[:id])
-    @files = @post_files.file.blob.download
-    if send_data(@files, disposition: 'attachment',
-        filename: @postfiles.file.blob.filename.to_s,
-        type: @postfiles.file.blob.content_type)
-        head :no_content
-    else
-        render post_file_path(@postfiles)
-    end
-  end
   
   private
   
   def post_files_params
-    params.require(:post_file).permit(:title,:introduction, files: [] ) #[])  
+    params.require(:post_file).permit(:title,:introduction, files: [] ) 
+  end
+  
+  def ensure_correct_user
+    @postfiles = PostFile.find(params[:id])
+    unless @postfiles.user == current_user
+      redirect_to user_path(current_user)
+    end
   end
   
 end

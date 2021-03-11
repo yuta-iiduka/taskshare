@@ -1,0 +1,5 @@
+
+<%= form_with(model:[post_files, post_comment],local: true) do |f| %>
+  <%= f.text_area :comment, row:'5',placeholder: "Nice!", class:"form-control input-sm" %><br>
+  <%= f.submit "Add Comment", class: 'btn btn-secondary' %>
+<% end %>

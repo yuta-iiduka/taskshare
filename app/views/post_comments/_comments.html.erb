@@ -1,0 +1,20 @@
+<h6>comments:<%= post_files.post_comments.count %></h6>
+<table class="table">
+  <% post_files.post_comments.each do |post_comment| %>
+    <tr>
+      <th>
+        <%= link_to user_path(post_files.user) do %>
+          <%= attachment_image_tag(post_comment.user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %><br>
+          <%= post_comment.user.name %><br>
+        <% end %>
+      </th>
+      <th><%= post_comment.comment %></th>
+      <th><%= post_comment.created_at.strftime('%Y/%m/%d') %></th>
+      <th>
+        <% if post_comment.user == current_user %>
+          <%= link_to "Delete",post_file_post_comment_path(post_comment.post_file,post_comment), method: :delete %>
+        <% end %>
+      </th>
+    </tr>
+  <% end %>
+</table>

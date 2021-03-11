@@ -8,16 +8,27 @@ views/post_files/show.html.erb
     <div class='col-md-8 offset-md-1'>
       <h2><%= @postfiles.title %></h2>
       <% if @postfiles.files.attached? %>
-        <table>
+        <table class ="table">
           <% @postfiles.files.each do |file| %>
             <tr>
-              <th>○<%=link_to file.filename ,download_post_file_path(@postfiles) %></th>
-              <th><%= image_tag file,:size => '120x80' %></th>
+              <th>○<%=link_to file.filename ,rails_blob_path(file) %></th>
+              <th><%= image_tag file,:size => '120x80',alt: "- no image" %></th>
             </tr>
           <% end %>
         </table>
       <% end %>
-      <%= @postfiles.introduction %>
+      <h4>●introduction</h4>
+      <div class="border-top" style="padding:20px;">
+        <%= @postfiles.introduction %>
+      </div>
+      <h4>●comment form</h4>
+      <div class="border-top" style="padding:20px;">
+        <%= render 'post_comments/comment-form',post_files: @postfiles,post_comment: @postcomment %>
+      </div>
+      <h4>●comments</h4>
+      <div class="border-top" style="padding:20px;">
+        <%= render 'post_comments/comments',post_files: @postfiles %>
+      </div>
     </div>
   </div>
 </div>
