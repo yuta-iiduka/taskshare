@@ -3,17 +3,52 @@ views/events/index.html.erb
   <div class='row'>
     <div class='col-md-3'>
       <h2>User Info</h2>
-      <%= render 'users/info', user: current_user %>
+      <%= render 'users/info', user: current_user %><br>
     </div>
     <div class='col-md-8 offset-md-1'>
-      <h2>Calendar</h2>
+      <h2>Calendar & Add plan<i class =" fas fa-pencil-alt"></i></h2>
       <div class= 'calendar'>
-        <%= month_calendar events: @events do |date,event| %>
-          <%= date %>
-          <% event.each do |event| %>
-            <%= event.title %>
-          <% end %>
+        <%= form_with model: @event, url: user_events_path, local: true do |form| %>
+        <div>
+          <table >
+            <tr>
+              <th>title</th>
+              <th>introduction</th>
+              <th>URL</th>
+            </tr>
+            <tr>
+              <th><%= form.text_field :title %></th>
+              <th><%= form.text_field :content %></th>
+              <th><%= form.text_field :tasklink, :value => @targeturl %></th>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <table>
+            <tr>
+              <th>start</th>
+              <th>end</th>
+            </tr>
+            <tr>
+              <th><%= form.datetime_select :start_time, use_month_numbers: true %></th>
+              <th><%= form.datetime_select :end_time, use_month_numbers: true %></th>
+              <th><%= form.submit class: "btn btn-outline-secondary btn-block" %></th>
+            </tr>
+          </table>
+        </div>
         <% end %>
+        <br>
+        
+        <div>
+          <%= month_calendar events: @events do |date,events| %>
+            <%= date.day %><br>
+            <% events.each do |event| %>
+              <%= link_to event.title, event.tasklink %><br>
+              <%= link_to "", user_event_path(events,event.id), method: :delete, class: "fas fa-window-close" %>
+              <%= link_to "", user_event_path(events,event.id), class: "fas fa-eye" %><br>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

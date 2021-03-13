@@ -1,0 +1,13 @@
+views/events/show.html.erb
+        <div>
+          <%= week_calendar events: @events do |date,events| %>
+            <%= date.day %><br>
+            <% events.each do |event| %>
+              ●<%= event.start_time.hour %>:<%= event.start_time.min %>~
+              <%= event.end_time.hour %>:<%= event.end_time.min %><br>
+              <%= link_to event.title, event.tasklink %>
+              <%= event.content %>
+              <%= link_to "", user_event_path(events,event.id), method: :delete, class: "fas fa-window-close" %>
+            <% end %>
+          <% end %>
+        </div>

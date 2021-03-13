@@ -1,10 +1,9 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-    <span class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+    <span class="calendar-title"><h2 class="text-white bg-secondary"><%= start_date.year %> / <%= start_date.month %> </h2></span>
+    <%= link_to t('simple_calendar.previous', default: '<<'), calendar.url_for_previous_view,class: "btn btn-outline-secondary" %>
+    <%= link_to t('simple_calendar.next', default: '>>'), calendar.url_for_next_view,class: "btn btn-outline-secondary" %>
   </div>
-
   <table class="table table-striped">
     <thead>
       <tr>
@@ -13,7 +12,6 @@
         <% end %>
       </tr>
     </thead>
-
     <tbody>
       <% date_range.each_slice(7) do |week| %>
         <tr>

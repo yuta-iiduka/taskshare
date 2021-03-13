@@ -1,12 +1,12 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
     <% if calendar.number_of_weeks == 1 %>
-      <span class="calendar-title">Week <%= calendar.week_number %></span>
+      <span class="calendar-title"><h2 class="text-white bg-secondary">Week <%= calendar.week_number %></h2></span>
     <%else%>
-        <span class="calendar-title">Week <%= calendar.week_number %> - <%= calendar.end_week %></span>
+        <span class="calendar-title"><h2 class="text-white bg-secondary">Week <%= calendar.week_number %> - <%= calendar.end_week %></h2></span>
     <%end%>
-        <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+        <%= link_to t('simple_calendar.previous', default: '<<'), calendar.url_for_previous_view,class: "btn btn-outline-secondary" %>
+        <%= link_to t('simple_calendar.next', default: '>>'), calendar.url_for_next_view,class: "btn btn-outline-secondary" %>
   </div>
 
   <table class="table table-striped">

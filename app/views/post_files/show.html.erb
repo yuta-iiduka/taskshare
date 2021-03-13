@@ -13,6 +13,7 @@ views/post_files/show.html.erb
         <% if @postfiles.user == current_user %>
           <%= link_to "",edit_post_file_path(@postfiles) ,class: "fas fa-edit" %>
           <%= link_to "",post_file_path(@postfiles),method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
+          <%= link_to "Add Calendar",user_events_path(user_id: current_user.id, targeturl: request.url) ,class: "fas fa-pencil-alt" %>
         <% end %>
         <table class ="table">
           <% @postfiles.files.each do |file| %>
