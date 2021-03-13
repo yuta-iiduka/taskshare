@@ -19,5 +19,7 @@
 
 <div class='row'>
   <%= link_to 'Edit Profile',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
-  <%= link_to "Create Files",new_post_file_path,class: "btn btn-outline-secondary btn-block fas" %>
+  <%= link_to "Create Files",new_post_file_path,class: "btn btn-outline-secondary btn-block fas fa-file" %>
+  <%= link_to "Show Favorites",favorites_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-heart" %>
+  <%= link_to "Check Calendar",favorites_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-calendar-check"%>
 </div>

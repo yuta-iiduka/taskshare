@@ -9,10 +9,11 @@ views/post_files/index.html.erb
       <h2>Files</h2>
       <table class="table">
         <tr>
-          <th>title</th>
+          <th><%= sort_order "title","title" %></th>
           <th>user</th>
-          <th>date</th>
-          <th>comments</th>
+          <th><%= sort_order "updated_at","date"%></th>
+          <th><%= link_to "comments", sort_commented_post_files_path %></th>
+          <th><%= link_to "favorited", sort_favorited_post_files_path %></th>
         </tr>
         <% @postfiles_all.each do |postfiles| %>
           <tr>
@@ -20,10 +21,10 @@ views/post_files/index.html.erb
             <th><%= postfiles.user.name %></th>
             <th><%= postfiles.updated_at %></th>
             <th><%= postfiles.post_comments.count %></th>
+            <th><%= postfiles.favorites.count %></th>
           </tr>
         <% end %>
       </table>
-        
     </div>
   </div>
 </div>

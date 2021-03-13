@@ -20,8 +20,10 @@ views/users/show.html.erb
             <th><%= link_to pf.title, post_file_path(pf) %></th>
             <th><%= pf.user.name %></th>
             <th><%= pf.updated_at %></th>
-            <th><%= link_to "Edit", edit_post_file_path(pf) %></th>
-            <th><%= link_to "Delete", post_file_path(pf), method: :delete %></th>
+            <% if current_user.id == @user.id %>
+              <th><%= link_to "Edit", edit_post_file_path(pf),class: "fas fa-edit" %></th>
+              <th><%= link_to "Delete", post_file_path(pf), method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %></th>
+            <% end %>
           </tr>
         <% end %>
       </table>

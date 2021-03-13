@@ -1,48 +1,49 @@
-<h2>Results index</h2>
-<!--books一覧 -->
-<table class="table table-hover table-inverse">
-  <% if @range == '2' %>
-   <thead>
-     <tr>
-       <th>PostUser</th>
-       <th></th>
-       <th>Title</th>
-       <th>Date</th>
-       <th colspan="3"></th>
-     </tr>
-   </thead>
-   <tbody>
-      <% @postfiles.each do |postfile| %>
-      <tr>
-        <td>
-          <%= link_to(postfile.user) do %>
-            <%= attachment_image_tag(postfile.user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %>
-          <% end %>
-        </td>
-        <td><%= postfile.user.name %></td>
-        <td><%= link_to postfile.title, post_file_path(postfile) %></td>
-        <td><%= postfile.updated_at %></td>
-      </tr>
+
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User Info</h2>
+      <%= render 'users/info', user: current_user %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Results index</h2>
+      <% if @range == '1' %>
+        <h4><%= @users.count %>serch result</h4>
+          <table class="table">
+            <tr>
+              <th>image</th>
+              <th>name</th>
+              <th></th>
+            </tr>
+            <% @postfiles.each do |postfiles| %>
+            <tr>
+              <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %></td>
+              <td><%= user.name%></td>
+              <td><%= link_to "Show", user_path(user) %></td>
+            </tr>
+            <% end %>
+          </table>
+      <% else %>
+        <h4><%= @postfiles.count %>serch result</h4>
+          <table class="table">
+            <tr>
+              <th>title</th>
+              <th>user</th>
+              <th>date</th>
+              <th>comments</th>
+              <th>favorited</th>
+            </tr>
+            <% @postfiles.each do |postfiles| %>
+            <tr>
+              <th><%= link_to postfiles.title, post_file_path(postfiles) %></th>
+              <th><%= postfiles.user.name %></th>
+              <th><%= postfiles.updated_at %></th>
+              <th><%= postfiles.post_comments.count %></th>
+              <th><%= postfiles.favorites.count %></th>
+            </tr>
+            <% end %>
+          </table>
       <% end %>
-    </tbody>
-
-  <% else %>
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Name</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-    <% @user.each do |user| %>
-     <tr>
-      <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %></td>
-      <td><%= user.name%></td>
-      <td><%= link_to "Show", user_path(user) %></td>
-     </tr>
-    <% end %>
-    </tbody>
-   <% end %>
- </table>
+    </div>
+  </div>
+</div>

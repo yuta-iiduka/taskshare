@@ -1,6 +1,8 @@
 class PostFilesController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
+  
   def new
      @postfiles = PostFile.new
   end
@@ -13,7 +15,8 @@ class PostFilesController < ApplicationController
   end
 
   def index
-    @postfiles_all = PostFile.all
+    #@postfiles_all = PostFile.all
+    @postfiles_all = PostFile.order("#{sort_column} #{sort_direction}")
   end
 
   def show
@@ -27,7 +30,7 @@ class PostFilesController < ApplicationController
   
   def update
     @postfiles = PostFile.find(params[:id])
-    if @postfiles.update
+    if @postfiles.save
       redirect_to post_file_path(@postfiles)
     else
       render :edit
@@ -41,6 +44,13 @@ class PostFilesController < ApplicationController
     redirect_to user_path(current_user)
   end
   
+  def sort_favorited
+    @postfiles_all = PostFile.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size}
+  end
+  
+  def sort_commented
+    @postfiles_all = PostFile.includes(:post_commented_users).sort {|a,b| b.post_commented_users.size <=> a.post_commented_users.size}
+  end
   
   private
   
@@ -55,4 +65,12 @@ class PostFilesController < ApplicationController
     end
   end
   
+  #ソート機能
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+  
+  def sort_column
+    PostFile.column_names.include?(params[:sort]) ? params[:sort] : 'title'
+  end
 end

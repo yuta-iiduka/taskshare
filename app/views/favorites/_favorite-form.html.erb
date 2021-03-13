@@ -1,0 +1,9 @@
+<% if post_file.favorited_by?(current_user) %>
+  <%= link_to post_file_favorites_path(post_file), method: :delete, class: "text-danger" do %>
+    ♥<%= post_file.favorites.count %>
+  <% end %>
+<% else %>
+  <%= link_to post_file_favorites_path(post_file), method: :post, class: "text-danger" do %>
+    ♡<%= post_file.favorites.count %>
+  <% end %>
+<% end %>

@@ -7,19 +7,22 @@ class User < ApplicationRecord
   attachment :profile_image
   has_many :post_files, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_post_files, through: :favorites, source: :post_file
+  has_many :post_commented_post_files, through: :post_comments, source: :post_file
   
   #検索機能（かつ，または）
   def self.search(search,word)
     if search == "forward_match"
-      @user = User.where("name LIKE?","#{word}%")
-    elsif search == "backword_match"
-      @user = User.where("name LIKE?","%#{word}")
+      @users = User.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @users = User.where("name LIKE?","%#{word}")
     elsif search == "perfect_match"
-      @user = User.where("#{word}")
+      @users = User.where("name LIKE?","#{word}")
     elsif search == "partial_match"
-      @user = User.where("name LIKE?","%#{word}%")
+      @users = User.where("name LIKE?","%#{word}%")
     else
-      @user = User.all
+      @users = User.all
     end
   end
 end

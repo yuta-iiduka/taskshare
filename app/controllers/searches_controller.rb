@@ -3,10 +3,11 @@ class SearchesController < ApplicationController
     @range = params[:range]
     search = params[:search]
     word = params[:word]
+    sortstyle = params[:sortstyle]
     if @range =='1'
-      @user = User.search(search,word)
+      @users = User.search(search,word)
     else
-      @postfiles = PostFile.search(search,word)
+      @postfiles = PostFile.search(search,word,sortstyle)
     end
   end
 end

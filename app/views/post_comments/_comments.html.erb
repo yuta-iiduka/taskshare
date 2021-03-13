@@ -12,7 +12,7 @@
       <th><%= post_comment.created_at.strftime('%Y/%m/%d') %></th>
       <th>
         <% if post_comment.user == current_user %>
-          <%= link_to "Delete",post_file_post_comment_path(post_comment.post_file,post_comment), method: :delete %>
+          <%= link_to "Delete",post_file_post_comment_path(post_comment.post_file,post_comment), method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
         <% end %>
       </th>
     </tr>

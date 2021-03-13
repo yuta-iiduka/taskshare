@@ -8,6 +8,12 @@ views/post_files/show.html.erb
     <div class='col-md-8 offset-md-1'>
       <h2><%= @postfiles.title %></h2>
       <% if @postfiles.files.attached? %>
+        <%= @postfiles.post_comments.count %>comments
+        <%= render 'favorites/favorite-form',post_file: @postfiles %>
+        <% if @postfiles.user == current_user %>
+          <%= link_to "",edit_post_file_path(@postfiles) ,class: "fas fa-edit" %>
+          <%= link_to "",post_file_path(@postfiles),method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
+        <% end %>
         <table class ="table">
           <% @postfiles.files.each do |file| %>
             <tr>

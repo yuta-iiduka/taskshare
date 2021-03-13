@@ -18,6 +18,12 @@ class UsersController < ApplicationController
         render "edit"
       end
     end
+    def favorites
+      @user = User.find(params[:id])
+      @post_files = @user.post_files
+      favorites = Favorite.where(user_id: current_user.id).pluck(:post_file_id)
+      @favorites_all = PostFile.find(favorites)
+    end
     
     private
     def user_params

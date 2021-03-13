@@ -1,0 +1,30 @@
+views/post_files/sort_favorited.html.erb
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User Info</h2>
+      <%= render 'users/info', user: current_user %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Files</h2>
+      <table class="table">
+        <tr>
+          <th><%= link_to "title",post_files_path %></th>
+          <th>user</th>
+          <th><%= link_to "date",post_files_path %></th>
+          <th><%= link_to "comments", sort_commented_post_files_path %></th>
+          <th><%= link_to "favorited", sort_favorited_post_files_path %></th>
+        </tr>
+        <% @postfiles_all.each do |postfiles| %>
+          <tr>
+            <th><%= link_to postfiles.title, post_file_path(postfiles) %></th>
+            <th><%= postfiles.user.name %></th>
+            <th><%= postfiles.updated_at %></th>
+            <th><%= postfiles.post_comments.count %></th>
+            <th><%= postfiles.favorites.count %></th>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
