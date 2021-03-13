@@ -7,6 +7,7 @@ class User < ApplicationRecord
   attachment :profile_image
   has_many :post_files, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :events,dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorited_post_files, through: :favorites, source: :post_file
   has_many :post_commented_post_files, through: :post_comments, source: :post_file

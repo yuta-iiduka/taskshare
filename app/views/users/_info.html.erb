@@ -21,5 +21,5 @@
   <%= link_to 'Edit Profile',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
   <%= link_to "Create Files",new_post_file_path,class: "btn btn-outline-secondary btn-block fas fa-file" %>
   <%= link_to "Show Favorites",favorites_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-heart" %>
-  <%= link_to "Check Calendar",favorites_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-calendar-check"%>
+  <%= link_to "Check Calendar",user_events_path(current_user),class: "btn btn-outline-secondary btn-block fas fa-calendar-check"%>
 </div>

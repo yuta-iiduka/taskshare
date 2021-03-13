@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     devise_for :users
     resources :users, only: [:index, :show, :edit, :update] do
       get :favorites, on: :member     #お気に入りページ
+      resources :events, only: [:index, :show, :edit, :update, :destroy]
     end
     resources :post_files, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]        #お気に入り機能

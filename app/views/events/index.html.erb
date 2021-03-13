@@ -1,0 +1,20 @@
+views/events/index.html.erb
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User Info</h2>
+      <%= render 'users/info', user: current_user %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Calendar</h2>
+      <div class= 'calendar'>
+        <%= month_calendar events: @events do |date,event| %>
+          <%= date %>
+          <% event.each do |event| %>
+            <%= event.title %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
