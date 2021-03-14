@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_015959) do
+ActiveRecord::Schema.define(version: 2021_03_14_030100) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +63,22 @@ ActiveRecord::Schema.define(version: 2021_03_13_015959) do
     t.string "title"
     t.text "introduction"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tagmap_postfiles", force: :cascade do |t|
+    t.integer "post_file_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_file_id", "tag_id"], name: "index_tagmap_postfiles_on_post_file_id_and_tag_id", unique: true
+    t.index ["post_file_id"], name: "index_tagmap_postfiles_on_post_file_id"
+    t.index ["tag_id"], name: "index_tagmap_postfiles_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

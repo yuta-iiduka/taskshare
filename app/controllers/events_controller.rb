@@ -1,6 +1,9 @@
 class EventsController < ApplicationController
   def index
     @targeturl = params[:targeturl]
+    @targetyear = params[:targetyear]
+    @targetmonth = params[:targetmonth]
+    @targetday = params[:targetday]
     @events = current_user.events
     @event = Event.new
     @event.user_id = current_user.id

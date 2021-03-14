@@ -5,6 +5,8 @@ class PostFile < ApplicationRecord
     has_many :favorites, dependent: :destroy
     has_many :favorited_users, through: :favorites, source: :user
     has_many :post_commented_users, through: :post_comments, source: :user
+    has_many :tagmap_postfiles, dependent: :destroy
+    has_many :tags, through: :tagmap_postfiles
     
     def favorited_by?(user)
       favorites.where(user_id: user.id).exists?
@@ -35,6 +37,22 @@ class PostFile < ApplicationRecord
         @postfiles = @postfiles.includes(:post_commented_users).sort {|a,b| b.post_commented_users.size <=> a.post_commented_users.size}
       elsif sortstyle == "no-comments"
         @postfiles = @postfiles.includes(:post_commented_users).sort {|a,b| b.post_commented_users.size <=> a.post_commented_users.size}.reverse
+      end
+    end
+    
+    #タグ保存機能
+    def save_tags(save_post_file_tags)
+      current_tags = self.tags.pluck(:name) unless self.tags.nil?
+      old_tags = current_tags - save_post_file_tags
+      new_tags = save_post_file_tags - current_tags
+      
+      old_tags.each do |old_name|
+        self.tags.delete Tag.find_by(name: old_name)
+      end
+      
+      new_tags.each do |new_name|
+        new_post_file_tag = Tag.find_or_create_by(name: new_name)
+        self.tags << new_post_file_tag
       end
     end
 end

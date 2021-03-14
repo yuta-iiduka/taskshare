@@ -11,6 +11,12 @@
     <%= form.label :introduction,class:"font-weight-bold" %><br>
     <%= form.text_area :introduction,class:"form-control input-sm" %><br>
   </div>
+  <div class = "form-group">
+    <%= form.label :tag,class:"font-weight-bold" %>
+    ※現在のTag:
+    <%= @tag_list %>
+    <%= form.text_field :name, placeholder: "タグを複数つけるにはスペースで区切ってください。",class:"form-control input-sm", value: @tag_list %>
+  </div>
   <div calss = "form-group">
     <%= form.submit %>
   </div>

@@ -30,8 +30,8 @@ views/events/index.html.erb
               <th>end</th>
             </tr>
             <tr>
-              <th><%= form.datetime_select :start_time, use_month_numbers: true %></th>
-              <th><%= form.datetime_select :end_time, use_month_numbers: true %></th>
+              <th><%= form.datetime_select :start_time, use_month_numbers: true, default: Time.new(@targetyear.to_i , @targetmonth.to_i, @targetday.to_i) %></th>
+              <th><%= form.datetime_select :end_time, use_month_numbers: true, default: Time.new(@targetyear.to_i, @targetmonth.to_i, @targetday.to_i) %></th>
               <th><%= form.submit class: "btn btn-outline-secondary btn-block" %></th>
             </tr>
           </table>
@@ -41,7 +41,7 @@ views/events/index.html.erb
         
         <div>
           <%= month_calendar events: @events do |date,events| %>
-            <%= date.day %><br>
+            <%= link_to date.day,user_events_path(user_id: current_user.id,targeturl: @targeturl, targetyear: date.year, targetmonth: date.month, targetday: date.day) %><br>
             <% events.each do |event| %>
               <%= link_to event.title, event.tasklink %><br>
               <%= link_to "", user_event_path(events,event.id), method: :delete, class: "fas fa-window-close" %>

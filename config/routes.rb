@@ -13,4 +13,7 @@ Rails.application.routes.draw do
       get :sort_favorited, on: :collection #お気に入り数ランキングページ
       get :sort_commented, on: :collection #コメント数ランキングページ
     end
+    resources :tags do
+      get 'post_files', to: 'post_files#search_tag'
+    end
 end

@@ -10,7 +10,9 @@ class PostFilesController < ApplicationController
   def create
     @postfiles = PostFile.create(post_files_params)
     @postfiles.user_id = current_user.id
+    tag_list = params[:post_file][:name].split(",")
     @postfiles.save
+    @postfiles.save_tags(tag_list)
     redirect_to post_files_path
   end
 
@@ -26,15 +28,24 @@ class PostFilesController < ApplicationController
   
   def edit
     @postfiles = PostFile.find(params[:id])  
+    @tag_list = @postfiles.tags.pluck(:name).join(",")
   end
   
   def update
     @postfiles = PostFile.find(params[:id])
+    @tag_list = params[:post_file][:name].split(",")
     if @postfiles.save
+      @postfiles.save_tags(@tag_list)
       redirect_to post_file_path(@postfiles)
     else
       render :edit
     end
+  end
+  
+  def search_tag
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @postfiles_all = @tag.post_files.all
   end
   
   def destroy
