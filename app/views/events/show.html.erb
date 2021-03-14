@@ -1,13 +1,44 @@
 views/events/show.html.erb
         <div>
           <%= week_calendar events: @events do |date,events| %>
-            <%= date.day %><br>
+            <h5><%= date.month %>/<%= date.day %></h5>
             <% events.each do |event| %>
+              <% @day_total={} %>
               ●<%= event.start_time.hour %>:<%= event.start_time.min %>~
               <%= event.end_time.hour %>:<%= event.end_time.min %><br>
-              <%= link_to event.title, event.tasklink %><br>
+              <%= link_to event.title, event.tasklink %>
+              <br>[
+                <% event.tags.each do |tag| %>
+                  <%= link_to tag.name, user_event_path(tag_id: tag.id) %>,
+                  <% @day_total[tag.name] = event.end_time - event.start_time %>
+                <% end %>
+              ]<br>  
               <%= event.content %><br>
               <%= link_to "", user_event_path(events,event.id), method: :delete, class: "fas fa-window-close" %><br>
+              <!-- totalの計算-->
+              <% unless @day_total == {} %>
+                <% @week_total = @week_total.merge(@day_total){|key, v0,v1| v0 + v1} %>
+              <% end %>
             <% end %>
           <% end %>
         </div>
+        
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>Week total time</h2>
+        <table class = "table">
+          <% @week_total.each do |key,value| %>
+            <tr>
+              <th><%= key %></th>
+              <th><%= value %></th>
+            </tr>
+          <% end %>
+        </table>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Week total graph</h2>
+    </div>
+  </div>
+</div>
+        

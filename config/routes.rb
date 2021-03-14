@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     end
     resources :tags do
       get 'post_files', to: 'post_files#search_tag'
+      get 'events',to: 'events#search_tag'
     end
 end

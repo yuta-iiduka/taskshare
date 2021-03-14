@@ -13,7 +13,7 @@ class PostFilesController < ApplicationController
     tag_list = params[:post_file][:name].split(",")
     @postfiles.save
     @postfiles.save_tags(tag_list)
-    redirect_to post_files_path
+    redirect_to post_files_path(user_id: current_user.id,targeturl: "" ,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day)
   end
 
   def index
