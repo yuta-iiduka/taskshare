@@ -7,7 +7,7 @@
     <%end%>
         <%= link_to t('simple_calendar.previous', default: '<<'), calendar.url_for_previous_view,class: "btn btn-outline-secondary" %>
         <%= link_to t('simple_calendar.next', default: '>>'), calendar.url_for_next_view,class: "btn btn-outline-secondary" %>
-        <%= link_to "Filter Reset",user_event_path ,class: "btn text-white bg-secondary" %>
+        <%= link_to "Filter Reset",user_event_path(start_date: start_date) ,class: "btn text-white bg-secondary" %>
         <h6 class= "fas fa-info-circle">tag click => Calendar is filtered</h6>
   </div>
 

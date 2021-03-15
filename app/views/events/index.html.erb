@@ -5,9 +5,10 @@ views/events/index.html.erb
       <h2>User Info</h2>
       <%= render 'users/info', user: current_user %><br>
       <h2>Filter</h2>
-      <%= link_to "Reset Filter",user_events_path(tag_id: tag.id,user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "btn btn-outline-success" %><br>
+      <%= link_to "Reset Filter" ,user_events_path(start_date: @start_date,tag_id: tag.id,user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "btn btn-outline-success" %><br>
       <% @tag_all.each do |tag| %>
-        <%= link_to tag.name,user_events_path(tag_id: tag.id,user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "btn btn-outline-secondary" %> 
+        <%= link_to tag.name,user_events_path(start_date: @start_date,tag_id: tag.id,user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "btn btn-outline-secondary" %> 
+        <%= link_to "",tag_post_files_path(tag) ,class: "fas fa-search" %>
       <% end %>
     </div>
     <div class='col-md-8 offset-md-1'>
@@ -47,11 +48,11 @@ views/events/index.html.erb
         <br>
         <div>
           <%= month_calendar events: @events do |date,events| %>
-            <%= link_to date.day,user_events_path(user_id: current_user.id,targeturl: @targeturl, targetyear: date.year, targetmonth: date.month, targetday: date.day) %><br>
+            <%= link_to date.day,user_events_path(start_date: date,user_id: current_user.id,targeturl: @targeturl, targetyear: date.year, targetmonth: date.month, targetday: date.day) %><br>
             <% events.each do |event| %>
               <%= link_to event.title, event.tasklink %><br>
-              <%= link_to "", user_event_path(events,event.id), method: :delete, class: "fas fa-window-close" %>
-              <%= link_to "", user_event_path(events,event.id), class: "fas fa-eye" %><br>
+              <%= link_to "", user_event_path(events,event.id,start_date: event.start_time), method: :delete, class: "fas fa-window-close" %>
+              <%= link_to "", user_event_path(events,event.id,start_date: event.start_time), class: "fas fa-eye" %><br>
             <% end %>
           <% end %>
         </div>

@@ -20,6 +20,7 @@ class EventsController < ApplicationController
       end
     end
     @tag_all = @tags.uniq #重複を取り除く
+    @start_date = params[:start_date]
   end
   
   def create
@@ -28,7 +29,7 @@ class EventsController < ApplicationController
     tag_list = params[:event][:name].split(",")
     event.save
     event.save_tag(tag_list)
-    redirect_to user_events_path(user_id: current_user.id,targeturl: "" ,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day)
+    redirect_to user_events_path(start_date: event.start_time,user_id: current_user.id,targeturl: "" ,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day)
   end
   
   def show
@@ -47,7 +48,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to user_events_path(user_id: current_user.id,targeturl: "" ,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day)
+    redirect_to user_events_path(start_date: @event.start_time,user_id: current_user.id,targeturl: "" ,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day)
   end
   
   def search_tag

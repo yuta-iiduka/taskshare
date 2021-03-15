@@ -9,8 +9,8 @@ views/events/show.html.erb
               <%= link_to event.title, event.tasklink %>
               <br>[
                 <% event.tags.each do |tag| %>
-                  <%= link_to tag.name, user_event_path(tag_id: tag.id) %>,
-                  <% @day_total[tag.name] = event.end_time - event.start_time %>
+                  <%= link_to tag.name, user_event_path(start_date: event.start_time,tag_id: tag.id) %>,
+                  <% @day_total[tag.name] = ((event.end_time - event.start_time)/3600).round(2) %>
                 <% end %>
               ]<br>  
               <%= event.content %><br>
@@ -31,13 +31,23 @@ views/events/show.html.erb
           <% @week_total.each do |key,value| %>
             <tr>
               <th><%= key %></th>
-              <th><%= value %></th>
+              <th><%= value %>h</th>
             </tr>
           <% end %>
         </table>
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Week total graph</h2>
+      <table>
+        <tr>
+          <th>column chart</th>
+          <th>pie chart</th>
+        </tr>
+        <tr>
+          <th><%= column_chart @week_total,colors: ['#b00'] %></th>
+          <th><%= pie_chart @week_total,colors: ['#b00'] %></th>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
