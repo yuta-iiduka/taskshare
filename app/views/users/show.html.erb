@@ -4,6 +4,7 @@ views/users/show.html.erb
     <div class='col-md-3'>
       <h2>User info</h2>
       <%= render 'info', user: @user %>
+      <%= render 'memos/form-memo',memo: @memo %>
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Files</h2>

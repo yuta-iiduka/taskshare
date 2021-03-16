@@ -23,3 +23,6 @@
   <%= link_to "Show Favorites",favorites_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-heart" %>
   <%= link_to "Check Calendar",user_events_path(user_id: current_user.id,targeturl: "" ,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day),class: "btn btn-outline-secondary btn-block fas fa-calendar-check"%>
 </div>
+<div class='row'>
+  <%= render 'memos/memo',user: current_user %>
+</div>

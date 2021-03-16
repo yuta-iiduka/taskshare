@@ -1,11 +1,19 @@
-app/views/homes/top.html.erb
-
   <div class="holder">
     <div class="first"></div>
     <div class="second"></div>
     <div class="third"></div>
     <div class="txt">
-      <h1>Welcom to TaskShare</h1>
-      <p>Let's make account.</p>
+      <div class='container px-5 px-sm-0'>
+        <div class='row'>
+          <div class='col-md-3'>
+            <h1>Welcom to TaskShare</h1>
+            <%=link_to "Let's make account.",new_user_session_path %>
+          </div>
+          <div class='col-md-8 offset-md-1'>
+            <%= image_tag 'neko3.png', :size =>'250x400' %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  

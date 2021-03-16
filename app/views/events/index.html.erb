@@ -12,20 +12,24 @@ views/events/index.html.erb
       <% end %>
     </div>
     <div class='col-md-8 offset-md-1'>
-      <h2>Calendar & Add plan<i class =" fas fa-pencil-alt"></i></h2>
+      <h2>Month Calendar & Add plan<i class =" fas fa-pencil-alt"></i></h2>
       <div class= 'calendar'>
         <%= form_with model: @event, url: user_events_path, local: true do |form| %>
         <div>
-          <table >
+          <table>
             <tr>
               <th>title</th>
               <th>introduction</th>
-              <th>URL</th>
-              <th>Tag</th>
             </tr>
             <tr>
               <th><%= form.text_field :title %></th>
               <th><%= form.text_field :content %></th>
+            </tr>
+            <tr>
+              <th>URL</th>
+              <th>Tag</th>
+            </tr>
+            <tr>
               <th><%= form.text_field :tasklink, :value => @targeturl %></th>
               <th><%= form.text_field :name ,placeholder: "','で区切ってください。" %></th>
             </tr>

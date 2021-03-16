@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorited_post_files, through: :favorites, source: :post_file
   has_many :post_commented_post_files, through: :post_comments, source: :post_file
+  has_many :memos, dependent: :destroy
   
   #検索機能（かつ，または）
   def self.search(search,word)

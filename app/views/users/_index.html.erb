@@ -3,6 +3,7 @@
     <tr>
       <th>image</th>
       <th>name</th>
+      <th>Description</th>
       <th>post_files</th>
       <th colspan="3"></th>
     </tr>
@@ -12,6 +13,7 @@
       <tr>
         <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %></td>
         <td><%= user.name %></td>
+        <td><%= user.opinion %></td>
         <td><%= user.post_files.count %></td>
         <td><%= link_to 'Show', user_path(user), class: "user_#{user.id}" %></td>
       </tr>

@@ -1,0 +1,15 @@
+<table class ="table">
+  <tr>
+    <th><h3 class ="fas fa-sticky-note">Your memos</h3></th>
+  </tr>
+  <% user.memos.each do |memo| %>
+  <tr>
+    <th>
+      <div class="bg-warning">
+        <i class="fas fa-paw"></i><%= memo.memotext %>
+        <%= link_to "",user_memo_path(memo.user,memo), method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
+      </div>
+    </th>
+  </tr>
+  <% end %>
+</table>
