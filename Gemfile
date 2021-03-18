@@ -74,3 +74,8 @@ gem "refile-mini_magick"
 gem 'simple_calendar', '~> 2.0'
 #グラフの描写
 gem 'chartkick'
+#環境変数
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
