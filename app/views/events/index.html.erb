@@ -57,10 +57,47 @@ views/events/index.html.erb
               <%= link_to event.title, event.tasklink %><br>
               <%= link_to "", user_event_path(events,event.id,start_date: event.start_time), method: :delete, class: "fas fa-window-close" %>
               <%= link_to "", user_event_path(events,event.id,start_date: event.start_time), class: "fas fa-eye" %><br>
+              <% @day_total={} %>
+              <% event.tags.each do |tag| %>
+                <% @day_total[tag.name] = ((event.end_time - event.start_time)/3600).round(2) %>
+              <% end %>
+              <!-- totalの計算-->
+              <% unless @day_total == {} %>
+                <% @month_total = @month_total.merge(@day_total){|key, v0,v1| v0 + v1} %>
+              <% end %>
             <% end %>
           <% end %>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>Month total time</h2>
+        <table class = "table">
+          <% @month_total.each do |key,value| %>
+            <tr>
+              <th><%= key %></th>
+              <th><%= value %>h</th>
+            </tr>
+          <% end %>
+        </table>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Month total graph</h2>
+      <table>
+        <tr>
+          <th>column chart</th>
+          <th>pie chart</th>
+        </tr>
+        <tr>
+          <th><%= column_chart @month_total,colors: ['#b00'] %></th>
+          <th><%= pie_chart @month_total %></th>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

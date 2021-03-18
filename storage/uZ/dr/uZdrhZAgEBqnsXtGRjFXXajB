@@ -1,0 +1,268 @@
+import pyxel
+import math
+from random import randint
+
+class App():
+    def __init__(self,w,h):
+        pyxel.init(w,h,caption ="Game")
+        #pyxel.image(0).load(0,0,"assets\")
+        pyxel.load("assets\my_resource.pyxres")
+        pyxel.image(1).load(0,0,"assets\sample.png")
+        pyxel.cls(0)
+        pyxel.run(self.update,self.draw)
+
+    def update(self):
+        #Enter:シーンの切り替え
+        if pyxel.btnp(pyxel.KEY_ENTER):
+            VS(0,pyxel.height/2)
+        
+    def draw(self):
+        pyxel.text(55,4,"Press Enter",pyxel.frame_count % 16)
+        pyxel.text(20,30,"Space key: Bullet",7)
+        pyxel.text(20,50,"Allow key : Move",7)
+        pyxel.text(20,70,"Q key : Quit",7)
+        pyxel.text(20,90,"You pass with 10000 points",7)
+        #pyxel.blt(61,66,0,0,38,16)
+##############################################################
+class Home():
+    def __init__(self,x,y):
+        self.player_x = x #プレイヤーのｘ座標
+        self.player_y = y #プレイヤーのy座標
+        self.player_is_active = True
+        self.enemy = []
+        self.bullet= []
+        self.lastscore = 0
+        self.score = 0
+        self.movemode= 0
+        pyxel.cls(1)
+        #pyxel.run(self.Home_update,self.Home_draw)
+        self.map = [
+            [0,0,0,0,0,0],
+            [0,0,0,0,12,0],
+            [0,0,0,0,0,0],
+            [0,5,0,0,0,0],
+            [0,0,0,10,0,0],
+            [0,0,0,0,0,0]
+        ]
+
+    def Home_update(self):
+        if pyxel.btnp(pyxel.KEY_ENTER):
+            VS(0,pyxel.height/2)
+
+    def Home_draw(self):
+        #HomeColor
+        self.draw_map()
+        pyxel.text(55,4,"Home",pyxel.frame_count % 16)
+
+    #プレイヤーの動きを判定する
+    def  move_key(self):
+        mode =self.movemode
+        x = self.player_x
+        y = self.player_y
+        if pyxel.btn(pyxel.KEY_LEFT):
+            x -=2
+            mode = 1
+        elif pyxel.btn(pyxel.KEY_RIGHT):
+            x+=2
+            mode = 2
+        if pyxel.btn(pyxel.KEY_UP):
+            y-=2
+            mode = 3
+        elif pyxel.btn(pyxel.KEY_DOWN):
+            y+=2
+            mode = 4
+        if pyxel.btn(pyxel.KEY_SPACE):
+            mode= 5
+        if pyxel.btnr(pyxel.KEY_SPACE):
+            mode =2
+            self.bullet_make()
+        if x+16>pyxel.width or x<0:
+            x = self.player_x
+        if y+24>pyxel.height or y<0:
+            y = self.player_y
+        if x == self.player_x and y == self.player_y:
+            return False,mode
+        self.player_x = x
+        self.player_y = y
+        self.movemode = mode
+        return True,mode
+
+    #プレイヤーの動きアニメ
+    def move_anime(self):
+        anifra = 16*(pyxel.frame_count % 3)
+        move = self.move_key()
+        if move[0]==True:
+            if move[1]==1 :
+                pyxel.blt(self.player_x,self.player_y,0,0+anifra,0,-16,24,0)
+            elif move[1]==2:
+                pyxel.blt(self.player_x,self.player_y,0,0+anifra,0,16,24,0)
+            elif move[1]==3:
+                pyxel.blt(self.player_x,self.player_y,0,0+anifra,24,16,24,0)
+            elif move[1]==4:
+                pyxel.blt(self.player_x,self.player_y,0,0+anifra,48,16,24,0)
+            elif move[1]==5:
+                pyxel.blt(self.player_x,self.player_y,0,48+anifra,0,16,24,0)
+        else:
+            if move[1]==0:
+                pyxel.blt(self.player_x,self.player_y,0,0,0,16,24,0)
+            elif move[1]==1 :
+                pyxel.blt(self.player_x,self.player_y,0,0,0,-16,24,0)
+            elif move[1]==2:
+                pyxel.blt(self.player_x,self.player_y,0,0,0,16,24,0)
+            elif move[1]==3:
+                pyxel.blt(self.player_x,self.player_y,0,0,24,16,24,0)
+            elif move[1]==4:
+                pyxel.blt(self.player_x,self.player_y,0,0,48,16,24,0)
+            elif move[1]==5:
+                pyxel.blt(self.player_x,self.player_y,0,48+anifra,0,16,24,0)
+
+    #バレットの座標の更新
+    def bullet_update(self,x,y,bullet_is_active):
+        x+=5
+        if x>pyxel.width:
+            bullet_is_active =False
+        return(x,y,bullet_is_active)
+
+    def bullet_make(self):
+        self.bullet.append((self.player_x+16,self.player_y,True))
+    
+    #敵の座標の更新
+    def enemy_update(self,x,y,enemy_is_active,HP):
+        x-=2
+        #プレイヤーとの衝突
+        if (not self.player_x+10 < x
+            and not self.player_x > x+10
+            and not self.player_y +10 < y
+            and not self.player_y > y+10
+            and not enemy_is_active == False
+            and self.player_is_active == True):
+                self.lastscore = self.score
+                self.player_is_active = False
+
+        #バレットとのあたり判定
+        #self.bullet[i][0] bulletのx ,self.bullet[i][1] bulletのy
+        for i,v in enumerate(self.bullet):
+            if (not self.bullet[i][0]+14 < x
+                and not self.bullet[i][0] > x+14
+                and not self.bullet[i][1]+14 < y
+                and not self.bullet[i][1] > y+14
+                and not enemy_is_active == False ):
+                    self.bullet[i] = [ a if not a==True else False for a in self.bullet[i]]#アクティブをFalseに書き換える
+                    HP -=1
+                    if HP <=0:
+                        enemy_is_active = False
+                        self.score +=1000
+        return (x,y,enemy_is_active,HP)
+
+    def enemy_make(self):
+        self.enemy.append((pyxel.width+10+randint(1,100),randint(0,pyxel.height-24),True,10))
+
+    #アクティブでないバレットと敵のリストを消去
+    def nonactive_update(self):
+        self.bullet= [(x,y,is_active) for (x,y,is_active) in self.bullet if is_active == True]
+        self.enemy = [(x,y,is_active,HP) for (x,y,is_active,HP) in self.enemy if is_active == True]
+        
+    def option_update(self):
+        if len(self.enemy) > 0:
+            for i,v in enumerate(self.enemy):
+                self.enemy[i]=self.enemy_update(*v)
+        if len(self.bullet) > 0:
+            for i,v in enumerate(self.bullet):
+                self.bullet[i]=self.bullet_update(*v)
+        self.nonactive_update()
+                
+    def option_show(self):
+        #敵の描写
+        if len(self.enemy) >0 :
+            for x,y,is_active,HP in self.enemy:
+                if is_active == True:
+                    pyxel.blt(x,y,0,0,96,16,24,0)
+                    s = "HP {:>1}".format(HP)
+                    pyxel.text(x+16,y,s,7)
+         #バレットの描写
+        if len(self.bullet)>0 :
+            for x,y,is_active in self.bullet:
+                if is_active == True:
+                    pyxel.blt(x,y,0,0,72,16,24,0)
+        
+    def score_show(self):
+        #スコアの描写
+        s= "SCORE {:>4}".format(self.score)#数字を文字列として入力するための処理
+        pyxel.text(0,0,s,8)
+
+    #マップの描写
+    def draw_map(self):
+        pyxel.rectb(0,0,Map.SIZE*6,Map.SIZE*6,5)
+        for j ,arr in enumerate(self.map):
+            for i , d in enumerate(arr):
+                Map.draw_chip(i,j,d)
+
+############################################################
+class VS(Home): 
+    def __init__(self,x,y):
+        super().__init__(x,y)
+        self.reload_x = x#Map座標の保存
+        self.reload_y = y
+        self.enemy_make()
+        pyxel.run(self.VS_update,self.VS_draw)
+        
+    def VS_update(self):
+        self.option_update()
+        
+        if pyxel.btnp(pyxel.KEY_Q):
+            pyxel.quit()
+        if pyxel.frame_count % 60 ==0:
+            self.enemy_make()
+        if self.player_is_active==False:
+            EndMenu(self.score)
+    def VS_draw(self):
+        #枠の設定
+        pyxel.cls(2)
+        self.draw_map()
+        #キャラクターの描写
+        self.move_anime()
+        self.option_show()
+        #スコアの描写
+        self.score_show()
+###################################################
+class EndMenu(Home):
+    def __init__(self,score):
+        super().__init__(0,0)
+        self.sc =score
+        self.s= "SCORE {:>4}".format(score)#数字を文字列として入力するための処理
+        pyxel.run(self.end_update,self.end_draw)
+
+    def end_update(self):
+        if pyxel.btnp(pyxel.KEY_ENTER):
+            VS(0,pyxel.height/2)
+        if pyxel.btnp(pyxel.KEY_Q):
+            pyxel.quit()
+            
+    def end_draw(self):
+        pyxel.cls(7)
+        pyxel.text(0,0,self.s,8)
+        if self.sc>9999:
+            pyxel.blt(5,5,1,0,0,256,256,0)
+            pyxel.text(0,5,"Thank you for playing",0)
+        else:
+            pyxel.text(0,10,"Press Enter",0)
+            pyxel.blt(pyxel.width/2,pyxel.height/2,0,0,48,16,24,0)
+        
+class Map():
+    SIZE = 8
+    CHIP_WIDTH = 5
+    CHIP_HEIGHT = 5
+    @classmethod
+    def to_screen(cls,i,j):
+        return(i*cls.SIZE,j*cls.SIZE)
+    
+    @classmethod
+    def draw_chip(cls,i,j,val):
+        x,y = cls.to_screen(i,j)
+        u = (val % cls.CHIP_WIDTH) * cls.SIZE
+        v = (math.floor(val / cls.CHIP_WIDTH))*cls.SIZE
+        pyxel.blt(x,y,0,u,v,cls.SIZE,cls.SIZE,2)
+
+WINDOW_WIDTH = 160
+WINDOW_HEIGHT = 120
+App(WINDOW_WIDTH,WINDOW_HEIGHT,)

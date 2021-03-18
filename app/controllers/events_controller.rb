@@ -21,6 +21,8 @@ class EventsController < ApplicationController
     end
     @tag_all = @tags.uniq #重複を取り除く
     @start_date = params[:start_date]
+    @month_total = {}
+    @day_total = {}
   end
   
   def create

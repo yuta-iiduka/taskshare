@@ -32,7 +32,15 @@ class PostFilesController < ApplicationController
   end
   
   def update
-    @postfiles = PostFile.find(params[:id])
+    #@postfiles = PostFile.find(params[:id])
+    @postfiles = PostFile.where(id: params[:id])
+    @postfiles[0].title = params[:post_file][:title]
+    @postfiles[0].introduction = params[:post_file][:introduction]
+    @postfiles[0].files.each do |file|
+      file.purge
+    end
+    @postfiles[0].files = params[:post_file][:files]
+    @postfiles = @postfiles[0]
     @tag_list = params[:post_file][:name].split(",")
     if @postfiles.save
       @postfiles.save_tags(@tag_list)
@@ -49,8 +57,7 @@ class PostFilesController < ApplicationController
   end
   
   def destroy
-    @postfiles = PostFile.find(params[:id])
-    #@postfiles.files.purge
+    @postfiles = PostFile.find(params[:id])#find(params[:id])
     @postfiles.destroy
     redirect_to user_path(current_user)
   end

@@ -52,7 +52,7 @@ class PostFile < ApplicationRecord
       
       new_tags.each do |new_name|
         new_post_file_tag = Tag.find_or_create_by(name: new_name)
-        self.tags << new_post_file_tag
+        self.tags.push(new_post_file_tag) #self.tags << new_post_file_tag
       end
     end
 end

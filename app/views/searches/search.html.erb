@@ -36,7 +36,7 @@
             <% @postfiles.each do |postfiles| %>
             <tr>
               <th><%= link_to postfiles.title, post_file_path(postfiles) %></th>
-              <th><%= postfiles.user.name %></th>
+              <th><%= link_to postfiles.user.name,user_path(postfiles.user) %></th>
               <th><%= postfiles.updated_at %></th>
               <th><%= postfiles.post_comments.count %></th>
               <th><%= postfiles.favorites.count %></th>
