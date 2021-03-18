@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_025829) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
-    t.text "content", default: ""
+    t.string "content", default: ""
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "tasklink", default: ""
