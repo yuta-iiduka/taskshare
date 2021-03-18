@@ -8,14 +8,21 @@ views/post_files/show.html.erb
     <div class='col-md-8 offset-md-1'>
       <h2><%= @postfiles.title %></h2>
       <% if @postfiles.files.attached? %>
+        <!-- 投稿者名 -->
+        <b>User: </b><%= @postfiles.user.name %>
+        <!-- コメント数 -->
         <%= @postfiles.post_comments.count %>comments
+        <!-- いいねボタン -->
         <%= render 'favorites/favorite-form',post_file: @postfiles %>
+        <!-- 編集・削除ボタン -->
         <% if @postfiles.user == current_user %>
           <%= link_to "",edit_post_file_path(@postfiles) ,class: "fas fa-edit" %>
           <%= link_to "",post_file_path(@postfiles),method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
         <% end %>
+        <!-- カレンダー追加ボタン -->
         <%= link_to "Add",user_events_path(user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "fas fa-calendar-check" %>
-        Tag:
+        <!-- タグ -->
+        <br><b>Tag:</b>
         <% @postfiles.tags.each do |tag| %>
           <%= link_to tag.name,tag_post_files_path(tag) ,class: "fas fa-search" %>
         <% end %>
