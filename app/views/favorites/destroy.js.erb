@@ -1,0 +1,1 @@
+$('#favorites_buttons_<%= @post_file.id %>').html("<%= j(render partial: 'favorites/favorite-form', locals: {post_file: @post_file}) %>");
