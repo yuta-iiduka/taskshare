@@ -1,3 +1,4 @@
+<b>Favorites:</b>
 <% if post_file.favorited_by?(current_user) %>
   <%= link_to post_file_favorites_path(post_file), method: :delete, remote: true , class: "text-danger" do %>
     ♥<%= post_file.favorites.count %>

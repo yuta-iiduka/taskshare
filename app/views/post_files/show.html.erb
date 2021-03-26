@@ -9,12 +9,13 @@
       <% if @postfiles.files.attached? %>
         <!-- 投稿者名 -->
         <b>User: </b><%= @postfiles.user.name %>
-        <!-- コメント数 -->
-        <%= @postfiles.post_comments.count %>comments
+        <!-- 重要度-->
+        <div class="postfiles-evaluation" data-score="<%= @postfiles.evaluation %>"><b>Rate:</b></div>
         <!-- 非同期いいねボタン -->
         <div id="favorites_buttons_<%= @postfiles.id %>">
           <%= render partial: 'favorites/favorite-form', locals: {post_file: @postfiles} %>
         </div>
+        <b>Tools:</b>
         <!-- 編集・削除ボタン -->
         <% if @postfiles.user == current_user %>
           <%= link_to "",edit_post_file_path(@postfiles) ,class: "fas fa-edit" %>
@@ -51,3 +52,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('.postfiles-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>

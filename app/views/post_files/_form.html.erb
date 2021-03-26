@@ -17,7 +17,19 @@
     <%= @tag_list %>
     <%= form.text_field :name, placeholder: "タグを複数つけるには','で区切ってください。",class: "form-control input-sm", value: @tag_list %>
   </div>
+  <div id ="evaluate_stars">
+    <label>重要度</label>
+    <%= form.hidden_field :evaluation, id: :review_star %>
+  </div>
   <div calss = "form-group">
     <%= form.submit %>
   </div>
 <% end %>
+<script>
+  $('#evaluate_stars').raty({
+  starOn: "<%= asset_path('star-on.png') %>",
+  starOff: "<%= asset_path('star-off.png') %>",
+  starHalf: "<%= asset_path('star-half.png') %>",
+  scoreName: 'post_file[evaluation]' //登録するモデル名とカラム名を記述
+  });
+</script>

@@ -36,6 +36,7 @@ class PostFilesController < ApplicationController
     @postfiles = PostFile.where(id: params[:id])
     @postfiles[0].title = params[:post_file][:title]
     @postfiles[0].introduction = params[:post_file][:introduction]
+    @postfiles[0].evaluation = params[:post_file][:evaluation]
     @postfiles[0].files.each do |file|
       file.purge
     end
@@ -73,7 +74,7 @@ class PostFilesController < ApplicationController
   private
   
   def post_files_params
-    params.require(:post_file).permit(:title,:introduction, files: [] ) 
+    params.require(:post_file).permit(:title,:introduction,:evaluation, files: [] ) 
   end
   
   def ensure_correct_user
