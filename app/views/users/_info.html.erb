@@ -1,22 +1,23 @@
-<table class='table'>
-  <tr>
+<div class ="row">
+  <table class='table'>
+    <tr>
       <th>Image</th>
       <th><%= attachment_image_tag(user, :profile_image, :fill, 100, 100, fallback: "no-image.jpg") %></th>
-  </tr>
-  <tr>
-	  <th>Name</th>
-	  <th><%= user.name %></th>
-  </tr>
-  <tr>
-	  <th>Contact</th>
-	  <th><%= user.email %></th>
-  </tr>
-  <tr>
-	  <th>Description</th>
-	  <th><%= user.opinion %></th>
-  </tr>
-</table>
-
+    </tr>
+    <tr>
+	    <th>Name</th>
+	    <th><%= user.name %></th>
+    </tr>
+    <tr>
+	    <th>Contact</th>
+	    <th><%= user.email %></th>
+    </tr>
+    <tr>
+	    <th>Description</th>
+	    <th><%= user.opinion %></th>
+    </tr>
+  </table>
+</div>
 <div class='row'>
   <%= link_to 'Edit Profile',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
   <%= link_to "Create Files",new_post_file_path,class: "btn btn-outline-secondary btn-block fas fa-file" %>

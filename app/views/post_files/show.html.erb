@@ -10,7 +10,8 @@
         <!-- 投稿者名 -->
         <b>User: </b><%= @postfiles.user.name %>
         <!-- 重要度-->
-        <div class="postfiles-evaluation" data-score="<%= @postfiles.evaluation %>"><b>Rate:</b></div>
+        <b>Rate:</b>
+        <div class="postfiles-evaluation" data-score="<%= @postfiles.evaluation %>"></div>
         <!-- 非同期いいねボタン -->
         <div id="favorites_buttons_<%= @postfiles.id %>">
           <%= render partial: 'favorites/favorite-form', locals: {post_file: @postfiles} %>
@@ -28,7 +29,7 @@
         <% @postfiles.tags.each do |tag| %>
           <%= link_to tag.name,tag_post_files_path(tag) ,class: "fas fa-search" %>
         <% end %>
-        <table class ="table">
+        <table class ="table info_area">
           <% @postfiles.files.each do |file| %>
             <tr>
               <th>○<%=link_to file.filename ,rails_blob_path(file) %></th>

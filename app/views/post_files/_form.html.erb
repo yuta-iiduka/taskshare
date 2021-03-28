@@ -17,8 +17,8 @@
     <%= @tag_list %>
     <%= form.text_field :name, placeholder: "タグを複数つけるには','で区切ってください。",class: "form-control input-sm", value: @tag_list %>
   </div>
+  <label><b>Rate</b></label>
   <div id ="evaluate_stars">
-    <label>重要度</label>
     <%= form.hidden_field :evaluation, id: :review_star %>
   </div>
   <div calss = "form-group">
