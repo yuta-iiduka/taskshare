@@ -6,4 +6,6 @@
     <%= select_tag 'sortstyle',options_for_select([["投稿が新しい順","new"],["投稿が古い順順","old"],["♥が多い順","favorite"],["♥が少ない順","no-favorite"],["コメが多い順","comments"],["コメが少ない順","no-comments"]]) %>
     <%= submit_tag "検索" %>
   <% end %>
+<% else %>
+  <%= render 'layouts/whatday' %>
 <% end %>
