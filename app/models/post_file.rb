@@ -8,6 +8,9 @@ class PostFile < ApplicationRecord
     has_many :tagmap_postfiles, dependent: :destroy
     has_many :tags, through: :tagmap_postfiles
     
+    validates :title, presence: true
+    validates :files, presence: true
+    
     def favorited_by?(user)
       favorites.where(user_id: user.id).exists?
     end

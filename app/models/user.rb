@@ -3,7 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
   attachment :profile_image
   has_many :post_files, dependent: :destroy
   has_many :post_comments, dependent: :destroy
@@ -12,6 +11,7 @@ class User < ApplicationRecord
   has_many :favorited_post_files, through: :favorites, source: :post_file
   has_many :post_commented_post_files, through: :post_comments, source: :post_file
   has_many :memos, dependent: :destroy
+  validates :name, presence: true
   
   #検索機能（かつ，または）
   def self.search(search,word)

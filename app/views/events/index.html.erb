@@ -76,7 +76,7 @@
   <div class='row'>
     <div class='col-md-3'>
       <h2>Month total time</h2>
-        <table class = "table">
+        <table class = "table strong-info">
           <% @month_total.each do |key,value| %>
             <tr>
               <th><%= key %></th>
@@ -87,16 +87,14 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Month total graph</h2>
-      <table>
-        <tr>
-          <th>column chart</th>
-          <th>pie chart</th>
-        </tr>
-        <tr>
-          <th><%= column_chart @month_total,colors: ['#b00'] %></th>
-          <th><%= pie_chart @month_total %></th>
-        </tr>
-      </table>
+      <div>
+        <b>column chart</b>
+        <%= column_chart @month_total,colors: ['#b00'] %>
+      </div>
+      <div>
+        <b>pie chart</b>
+        <%= pie_chart @month_total %>
+      </div>
     </div>
   </div>
 </div>

@@ -5,50 +5,54 @@
       <%= render 'users/info', user: current_user %>
     </div>
     <div class='col-md-8 offset-md-1'>
-      <h2><%= @postfiles.title %></h2>
-      <% if @postfiles.files.attached? %>
-        <!-- 投稿者名 -->
-        <b>User: </b><%= @postfiles.user.name %>
-        <!-- 重要度-->
-        <b>Rate:</b>
-        <div class="postfiles-evaluation" data-score="<%= @postfiles.evaluation %>"></div>
-        <!-- 非同期いいねボタン -->
-        <div id="favorites_buttons_<%= @postfiles.id %>">
-          <%= render partial: 'favorites/favorite-form', locals: {post_file: @postfiles} %>
-        </div>
-        <b>Tools:</b>
-        <!-- 編集・削除ボタン -->
-        <% if @postfiles.user == current_user %>
-          <%= link_to "",edit_post_file_path(@postfiles) ,class: "fas fa-edit" %>
-          <%= link_to "",post_file_path(@postfiles),method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
-        <% end %>
-        <!-- カレンダー追加ボタン -->
-        <%= link_to "Add",user_events_path(user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "fas fa-calendar-check" %>
-        <!-- タグ -->
-        <br><b>Tag:</b>
-        <% @postfiles.tags.each do |tag| %>
-          <%= link_to tag.name,tag_post_files_path(tag) ,class: "fas fa-search" %>
-        <% end %>
-        <table class ="table info_area">
-          <% @postfiles.files.each do |file| %>
-            <tr>
-              <th>○<%=link_to file.filename ,rails_blob_path(file) %></th>
-              <th><%= image_tag file,:size => '120x80',alt: "- no image" %></th>
-            </tr>
+      <div class='strong-area'>
+        <h2><%= @postfiles.title %></h2>
+          <% if @postfiles.files.attached? %>
+            <!-- 投稿者名 -->
+            <b>User: </b><%= @postfiles.user.name %>
+            <!-- 重要度-->
+            <b>Rate:</b>
+            <div class="postfiles-evaluation" data-score="<%= @postfiles.evaluation %>"></div>
+            <!-- 非同期いいねボタン -->
+            <div id="favorites_buttons_<%= @postfiles.id %>">
+              <%= render partial: 'favorites/favorite-form', locals: {post_file: @postfiles} %>
+            </div>
+            <b>Tools:</b>
+            <!-- 編集・削除ボタン -->
+            <% if @postfiles.user == current_user %>
+              <%= link_to "",edit_post_file_path(@postfiles) ,class: "fas fa-edit" %>
+              <%= link_to "",post_file_path(@postfiles),method: :delete,data: {confirm: '本当に消しますか？'} ,class: "fas fa-trash-alt" %>
+            <% end %>
+            <!-- カレンダー追加ボタン -->
+            <%= link_to "Add",user_events_path(user_id: current_user.id, targeturl: request.url,targetyear: Date.today.year, targetmonth: Date.today.month, targetday: Date.today.day) ,class: "fas fa-calendar-check" %>
+            <!-- タグ -->
+            <br><b>Tag:</b>
+            <% @postfiles.tags.each do |tag| %>
+              <%= link_to tag.name,tag_post_files_path(tag) ,class: "fas fa-search" %>
+            <% end %>
+            <table class ="table strong-info">
+              <% @postfiles.files.each do |file| %>
+                <tr>
+                  <th>○<%=link_to file.filename ,rails_blob_path(file) %></th>
+                  <th><%= image_tag file,:size => '120x80',alt: "- no image" %></th>
+                </tr>
+              <% end %>
+            </table>
           <% end %>
-        </table>
-      <% end %>
-      <h4>●introduction</h4>
-      <div class="border-top" style="padding:20px;">
-        <%= @postfiles.introduction %>
+          <h4>●introduction</h4>
+          <div class="border-top" style="padding:20px;">
+            <%= @postfiles.introduction %>
+        </div>
       </div>
-      <h4>●comment form</h4>
-      <div class="border-top" style="padding:20px;">
-        <%= render 'post_comments/comment-form',post_files: @postfiles,post_comment: @postcomment %>
-      </div>
-      <h4>●comments</h4>
-      <div class="border-top" style="padding:20px;">
-        <%= render 'post_comments/comments',post_files: @postfiles %>
+      <div class='strong-area'>
+        <h4>●comment form</h4>
+        <div class="border-top" style="padding:20px;">
+          <%= render 'post_comments/comment-form',post_files: @postfiles,post_comment: @postcomment %>
+        </div>
+        <h4>●comments</h4>
+        <div class="border-top" style="padding:20px;">
+          <%= render 'post_comments/comments',post_files: @postfiles %>
+        </div>
       </div>
     </div>
   </div>

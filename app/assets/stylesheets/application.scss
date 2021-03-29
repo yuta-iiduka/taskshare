@@ -18,6 +18,15 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
-.info_area {
-  background-color: #e1e1e1;
+body {
+  background-color: #d1e9e9;
+}
+
+.strong-info {
+  background-color: #aac7dc;
+}
+
+.strong-area {
+  border: solid;
+  border-color: #aac7dc;
 }

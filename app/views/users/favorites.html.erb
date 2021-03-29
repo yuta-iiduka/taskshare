@@ -6,30 +6,28 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Favorites</h2>
-        <table class="table">
+        <table class="table strong-info">
           <thead>
             <tr>
-              <th>image</th>
-              <th>name</th>
+              <th>user</th>
               <th>title</th>
-              <th>date</th>
-              <th>comment</th>
-              <th>favorited</th>
-              <th colspan="3"></th>
+              <th>info</th>
             </tr>
           </thead>
           <% @favorites_all.each do |favorite| %>
             <tr>
               <td>
                 <%= link_to user_path(favorite.user) do %>
-                  <%= attachment_image_tag(favorite.user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %>
+                  <%= attachment_image_tag(favorite.user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %><br>
+                  <%= favorite.user.name %>
                 <% end %>
               </td>
-              <td><%= link_to favorite.user.name,user_path(favorite.user) %></td>
               <td><%= link_to favorite.title,post_file_path(favorite) %></td>
-              <td><%= favorite.updated_at %></td>
-              <td><%= favorite.post_comments.count %></td>
-              <td><%= favorite.favorites.count %></td>
+              <td>
+                date:<%= favorite.updated_at %><br>
+                comments:<%= favorite.post_comments.count %><br>
+                favorites:<%= favorite.favorites.count %>
+              </td>
             </tr>
           <% end %>
         </table>

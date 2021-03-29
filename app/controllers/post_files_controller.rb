@@ -33,22 +33,22 @@ class PostFilesController < ApplicationController
   
   def update
     #@postfiles = PostFile.find(params[:id])
-    @postfiles = PostFile.where(id: params[:id])
-    @postfiles[0].title = params[:post_file][:title]
-    @postfiles[0].introduction = params[:post_file][:introduction]
-    @postfiles[0].evaluation = params[:post_file][:evaluation]
-    @postfiles[0].files.each do |file|
-      file.purge
-    end
-    @postfiles[0].files = params[:post_file][:files]
-    @postfiles = @postfiles[0]
-    @tag_list = params[:post_file][:name].split(",")
-    if @postfiles.save
-      @postfiles.save_tags(@tag_list)
-      redirect_to post_file_path(@postfiles)
-    else
-      render :edit
-    end
+      @postfiles = PostFile.where(id: params[:id])
+      @tag_list = params[:post_file][:name].split(",")
+      @postfiles[0].title = params[:post_file][:title]
+      @postfiles[0].introduction = params[:post_file][:introduction]
+      @postfiles[0].evaluation = params[:post_file][:evaluation]
+      @postfiles[0].files.each do |file|
+        file.purge
+      end
+      @postfiles[0].files = params[:post_file][:files]
+      if @postfiles = @postfiles[0]
+        @postfiles.save
+        @postfiles.save_tags(@tag_list)
+        redirect_to post_file_path(@postfiles)
+      else
+        render :edit
+      end
   end
   
   def search_tag

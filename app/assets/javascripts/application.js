@@ -24,11 +24,13 @@
 //= require chartkick
 //= require Chart.bundle
 //= require jquery.raty.js
-$(function(){
-  ScrollReveal().reveal('.about_anime', { 
-    duration: 1500,
-    origin: "right",
-    distance: "70px",
-    reset: true
+document.addEventListener("turbolinks:load", function () {
+  $(function(){
+    ScrollReveal().reveal('.about_anime', { 
+      duration: 1500,
+      origin: "right",
+      distance: "70px",
+      reset: true
+    });
   });
 });

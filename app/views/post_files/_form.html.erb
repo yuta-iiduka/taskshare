@@ -5,7 +5,7 @@
   </div>
   <div calss = "form-group">
     <%= form.label :files,class:"font-weight-bold" %><br>
-    <%= form.file_field :files, multiple: true %><br><br>
+    <%= form.file_field :files , multiple: true ,id: 'file-but', class: 'file-but' %><br><br>
   </div>
   <div calss = "form-group">
     <%= form.label :introduction,class:"font-weight-bold" %><br>
@@ -20,9 +20,9 @@
   <label><b>Rate</b></label>
   <div id ="evaluate_stars">
     <%= form.hidden_field :evaluation, id: :review_star %>
-  </div>
+  </div><br>
   <div calss = "form-group">
-    <%= form.submit %>
+    <%= form.submit id: 'upload-btn',disabled: true %>
   </div>
 <% end %>
 <script>
@@ -32,5 +32,13 @@
   starOff: "<%= asset_path('star-off.jpg') %>",
   starHalf: "<%= asset_path('star-half.jpg') %>",
   scoreName: 'post_file[evaluation]' //登録するモデル名とカラム名を記述
+  });
+  $('#file-but').on('change',function(){
+    if (document.getElementById("file-but").value === ""){
+      document.getElementById("upload-btn").disabled = true;
+    }
+    else {
+    document.getElementById("upload-btn").disabled = false;
+    }
   });
 </script>

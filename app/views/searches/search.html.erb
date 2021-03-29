@@ -9,23 +9,27 @@
       <h2>Results index</h2>
       <% if @range == '1' %>
         <h4><%= @users.count %>serch result</h4>
-          <table class="table">
+          <table class="table strong-info">
             <tr>
-              <th>image</th>
-              <th>name</th>
+              <th>user</th>
+              <th>files</th>
               <th></th>
             </tr>
-            <% @postfiles.each do |postfiles| %>
+            <% @users.each do |user| %>
             <tr>
-              <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %></td>
-              <td><%= user.name%></td>
-              <td><%= link_to "Show", user_path(user) %></td>
+              <td>
+                <%= link_to user_path(user) do %>
+                  <%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image.jpg") %><br>
+                  <%= user.name %>
+                <% end %>
+              </td>
+              <td><%= user.post_files.count %></td>
             </tr>
             <% end %>
           </table>
       <% else %>
         <h4><%= @postfiles.count %>serch result</h4>
-          <table class="table">
+          <table class="table strong-info">
             <tr>
               <th>title</th>
               <th>user</th>

@@ -24,7 +24,7 @@
         
 <div class='container px-5 px-sm-0'>
   <div class='row'>
-    <div class='col-md-3'>
+    <div class='col-md-3 strong-info'>
       <h2>Week total time</h2>
         <table class = "table">
           <% @week_total.each do |key,value| %>
@@ -35,18 +35,15 @@
           <% end %>
         </table>
     </div>
-    <div class='col-md-8 offset-md-1'>
-      <h2>Week total graph</h2>
-      <table>
-        <tr>
-          <th>column chart</th>
-          <th>pie chart</th>
-        </tr>
-        <tr>
-          <th><%= column_chart @week_total,colors: ['#b00'] %></th>
-          <th><%= pie_chart @week_total %></th>
-        </tr>
-      </table>
+    <div class='col-md-9'>
+      <div>
+        <b>column chart</b>
+          <%= column_chart @week_total,colors: ['#b00'] %>
+      </div>
+      <div>
+        <b>pie chart</b>
+          <%= pie_chart @week_total %>
+      </div>
     </div>
   </div>
 </div>
