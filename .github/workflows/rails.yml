@@ -14,7 +14,6 @@ jobs:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         USER_NAME: ${{ secrets.USER_NAME }}
         HOST_NAME: ${{ secrets.HOST_NAME }}
-        SECRET_KEY_BASE: ${{ secrets.MASTER_KEY }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} 'cd taskshare &&
