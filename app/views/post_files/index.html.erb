@@ -17,8 +17,10 @@
         <% @postfiles_all.each do |postfiles| %>
           <tr>
             <th>
-              <%= link_to postfiles.title, post_file_path(postfiles) %><br>
-              <div class= "postfiles-evaluation" data-score="<%= postfiles.evaluation %>"></div>
+              <%= link_to post_file_path(postfiles) do %><br>
+                <%= postfiles.title %>
+                <div class= "postfiles-evaluation" data-score="<%= postfiles.evaluation %>"></div>
+              <% end %>
             </th>
             <th><%= link_to postfiles.user.name ,user_path(postfiles.user) %></th>
             <th><%= postfiles.updated_at %></th>
@@ -30,7 +32,6 @@
     </div>
   </div>
 </div>
-
 <script>
   $('.postfiles-evaluation').empty();
   $('.postfiles-evaluation').raty({
